@@ -52,7 +52,7 @@ module Brainfuck
         when '.'
           print @mem.value.chr(Encoding::ASCII_8BIT)
         when ','
-          @mem.value = STDIN.getch.ord
+          @mem.value = STDIN.noecho(&:getch).ord
         when '['
           pc = @jumps[pc] if @mem.zero?
         when ']'
