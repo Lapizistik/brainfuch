@@ -54,7 +54,7 @@ module Brainfuck
         when '-'
           @mem.value -= 1
         when '.'
-          print @mem.value.chr(Encoding::ASCII_8BIT)
+          print @mem.value.chr(STDIN.external_encoding || Encoding::UTF_8)
         when ','
           @mem.value = STDIN.noecho(&:getch).ord
         when '['
