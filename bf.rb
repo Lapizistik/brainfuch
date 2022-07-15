@@ -1,9 +1,13 @@
+#!/usr/bin/env ruby
+
+require 'io/console'
+
 module Brainfuck
   class Mem
     # We want to simulate infinite linear memory in both directions
     def initialize
-      @right = Array.new # this will include 0
-      @left = Array.new
+      @right = [] # this will include 0
+      @left = []
       @ptr = 0
     end
     def value
@@ -81,4 +85,21 @@ module Brainfuck
       jumps
     end
   end
+
+  class << self
+    def run(code)
+      Interpreter.new(code).run
+    end
+    def load(filename)
+      Interpreter.new(File.read(filename))
+    end
+  end
+end
+
+# are we run as executable directly?
+if __FILE__==$0
+  # ok, let's read the program from the command line or STDIN
+  # Please note that reading the program from STDIN will interfere
+  # with user input
+  Brainfuck.run(ARGF.read)
 end
